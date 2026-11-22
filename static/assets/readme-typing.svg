@@ -1,0 +1,18 @@
+<svg width="760" height="120" viewBox="0 0 760 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Plan your thali, track every calorie, automate your grocery list">
+  <rect x="2" y="2" width="756" height="116" rx="18" fill="#12100E" stroke="#F97316" stroke-opacity="0.45" stroke-width="2"/>
+  <circle cx="34" cy="34" r="5" fill="#F97316"/>
+  <circle cx="52" cy="34" r="5" fill="#EAB308"/>
+  <circle cx="70" cy="34" r="5" fill="#22C55E"/>
+  <text x="34" y="72" fill="#FAFAF9" font-family="Georgia, serif" font-size="27" font-weight="700">Plan your thali.</text>
+  <defs>
+    <clipPath id="typeReveal">
+      <rect x="34" y="84" width="0" height="26">
+        <animate attributeName="width" values="0;0;660;660;0" keyTimes="0;0.12;0.62;0.9;1" dur="6s" repeatCount="indefinite"/>
+      </rect>
+    </clipPath>
+  </defs>
+  <text x="34" y="104" fill="#FDBA74" font-family="Arial, Helvetica, sans-serif" font-size="17" clip-path="url(#typeReveal)">Track every calorie • Automate your grocery list • Made in Jaunpur</text>
+  <rect x="34" y="84" width="3" height="24" fill="#F97316">
+    <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.5;0.52;0.9;1" dur="0.9s" repeatCount="indefinite"/>
+  </rect>
+</svg>

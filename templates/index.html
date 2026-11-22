@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+{% block title %}Bojnalay — Smart Thali Planner, Recipes & Nutrition Studio{% endblock %}
+
+{% block content %}
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-image" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-content wrap">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="eyebrow-line"></span> Smart Thali Planner • Jaunpur, Uttar Pradesh</div>
+      <h1>Plan your <em>thali.</em><br>Track every <span class="saffron">calorie.</span><br>Automate the <span class="mint">grocery list.</span></h1>
+      <p class="hero-sub">A warm, home-grown culinary studio for Indian meals — from Jaunpuri imarti to high-protein bowls. Built by Raj Gautam, crafted for your kitchen.</p>
+      <div class="hero-actions">
+        <a href="#planner" class="btn btn-primary">Open the Planner <span>→</span></a>
+        <a href="#recipes" class="btn btn-ghost">Explore Recipe Vault</a>
+      </div>
+      <div class="hero-typing">
+        <span class="type-label">CURRENTLY SIMMERING:</span>
+        <span class="typed-text" id="typedText"></span><span class="type-cursor"></span>
+      </div>
+    </div>
+
+    <aside class="hero-live-card glass" aria-label="Live nutrition preview">
+      <div class="live-head">
+        <span class="live-dot"></span> LIVE THALI PULSE
+        <span class="live-day" id="liveDay">MONDAY</span>
+      </div>
+      <div class="live-kcal"><span id="liveKcal">0</span><small>kcal planned</small></div>
+      <div class="live-split">
+        <div><span class="dot dot-protein"></span><b id="liveProtein">0g</b><small>protein</small></div>
+        <div><span class="dot dot-carb"></span><b id="liveCarbs">0g</b><small>carbs</small></div>
+        <div><span class="dot dot-fat"></span><b id="liveFats">0g</b><small>fats</small></div>
+      </div>
+      <div class="live-bar"><i id="liveBar"></i></div>
+      <p class="live-foot">of <strong>2200 kcal</strong> daily target • updates live as you plan</p>
+      <div class="hero-dev-strip">
+        <img src="{{ url_for('static', filename='assets/raj-gautam.png') }}" alt="Raj Gautam">
+        <div><strong>Engineered by Raj Gautam</strong><span>🍲 Jaunpur, Uttar Pradesh</span></div>
+        <span class="verified" title="Verified developer">✔</span>
+      </div>
+    </aside>
+  </div>
+  <div class="hero-bottom-fade" aria-hidden="true"></div>
+</section>
+
+<!-- ================= NUTRITION RINGS ================= -->
+<section class="section nutrition-section" id="nutrition">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">01 / NUTRITION PULSE</span>
+        <h2>Daily <span class="saffron">macro rings</span></h2>
+        <p>Pick a day. Watch the gauges fill as your thali takes shape.</p>
+      </div>
+      <div class="day-picker" id="dayPicker" role="tablist" aria-label="Select day"></div>
+    </div>
+
+    <div class="rings-grid">
+      <article class="ring-card glass" data-ring="calories">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 130 130" class="ring-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad-cal" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FB923C"/><stop offset="100%" stop-color="#F97316"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-track" cx="65" cy="65" r="52"/>
+            <circle class="ring-progress" cx="65" cy="65" r="52" stroke="url(#grad-cal)"/>
+          </svg>
+          <div class="ring-center"><strong id="val-calories">0</strong><span>kcal</span></div>
+        </div>
+        <div class="ring-meta"><h3>Calories</h3><p><span id="pct-calories">0%</span> of 2200 kcal</p></div>
+      </article>
+
+      <article class="ring-card glass" data-ring="protein">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 130 130" class="ring-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad-pro" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#4ADE80"/><stop offset="100%" stop-color="#16A34A"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-track" cx="65" cy="65" r="52"/>
+            <circle class="ring-progress" cx="65" cy="65" r="52" stroke="url(#grad-pro)"/>
+          </svg>
+          <div class="ring-center"><strong id="val-protein">0</strong><span>grams</span></div>
+        </div>
+        <div class="ring-meta"><h3>Protein</h3><p><span id="pct-protein">0%</span> of 110 g target</p></div>
+      </article>
+
+      <article class="ring-card glass" data-ring="carbs">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 130 130" class="ring-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad-carb" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FDE047"/><stop offset="100%" stop-color="#CA8A04"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-track" cx="65" cy="65" r="52"/>
+            <circle class="ring-progress" cx="65" cy="65" r="52" stroke="url(#grad-carb)"/>
+          </svg>
+          <div class="ring-center"><strong id="val-carbs">0</strong><span>grams</span></div>
+        </div>
+        <div class="ring-meta"><h3>Carbs</h3><p><span id="pct-carbs">0%</span> of 260 g target</p></div>
+      </article>
+
+      <article class="ring-card glass" data-ring="fats">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 130 130" class="ring-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad-fat" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FDBA74"/><stop offset="100%" stop-color="#EA580C"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-track" cx="65" cy="65" r="52"/>
+            <circle class="ring-progress" cx="65" cy="65" r="52" stroke="url(#grad-fat)"/>
+          </svg>
+          <div class="ring-center"><strong id="val-fats">0</strong><span>grams</span></div>
+        </div>
+        <div class="ring-meta"><h3>Fats</h3><p><span id="pct-fats">0%</span> of 70 g target</p></div>
+      </article>
+    </div>
+    <div class="week-strip glass">
+      <span class="week-label">THIS WEEK'S THALI</span>
+      <span><b id="weekMeals">0</b> meals planned</span><i></i>
+      <span><b id="weekKcal">0</b> kcal total</span><i></i>
+      <span><b id="weekProtein">0</b> g protein</span>
+      <button class="link-btn" id="clearPlanBtn">Clear week</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7-DAY PLANNER ================= -->
+<section class="section planner-section" id="planner">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">02 / WEEKLY THALI</span>
+        <h2>The 7-day <span class="mint">meal planner</span></h2>
+        <p>Tap any empty slot to assign a recipe. Your macros and grocery list update instantly.</p>
+      </div>
+      <div class="planner-legend">
+        <span><i class="legend-dot legend-breakfast"></i> Breakfast</span>
+        <span><i class="legend-dot legend-lunch"></i> Lunch</span>
+        <span><i class="legend-dot legend-snack"></i> Snack</span>
+        <span><i class="legend-dot legend-dinner"></i> Dinner</span>
+      </div>
+    </div>
+    <div class="planner-scroll">
+      <div class="planner-grid" id="plannerGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RECIPE VAULT ================= -->
+<section class="section recipes-section" id="recipes">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">03 / RECIPE VAULT</span>
+        <h2>Flavours of <span class="saffron">Jaunpur &amp; beyond</span></h2>
+        <p>Regional favourites, healthy bowls and family classics — with photos, macros and full methods.</p>
+      </div>
+      <button class="btn btn-outline" id="openCustomRecipeBtn">＋ Add Custom Recipe</button>
+    </div>
+
+    <div class="vault-toolbar glass">
+      <label class="search-box">
+        <span aria-hidden="true">⌕</span>
+        <input type="search" id="recipeSearch" placeholder="Search imarti, litti, paneer, bowl…" autocomplete="off">
+      </label>
+      <div class="filter-chips" id="categoryFilters"></div>
+      <span class="result-count" id="resultCount">0 recipes</span>
+    </div>
+
+    <div class="recipe-grid" id="recipeGrid"></div>
+    <div class="empty-state" id="recipeEmpty" hidden>No recipes match that search. Try another spice blend.</div>
+  </div>
+</section>
+
+<!-- ================= SHOPPING LIST ================= -->
+<section class="section shopping-section" id="shopping">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">04 / SMART GROCERY</span>
+        <h2>One click. <span class="mint">Everything on your list.</span></h2>
+        <p>Ingredients from every planned meal, merged and sorted by grocery aisle.</p>
+      </div>
+      <div class="shopping-actions">
+        <button class="btn btn-primary" id="generateListBtn">⚡ Generate from my plan</button>
+        <a class="btn btn-ghost" id="downloadTxtBtn" href="/api/shopping/download?format=txt">↓ Download .txt</a>
+        <a class="btn btn-ghost" id="downloadCsvBtn" href="/api/shopping/download?format=csv">↓ .csv</a>
+      </div>
+    </div>
+
+    <div class="shopping-layout">
+      <div class="shopping-panel glass">
+        <div class="shopping-progress-head">
+          <div><h3>Weekly grocery checklist</h3><p id="shoppingSummary">Generate a list to start ticking items.</p></div>
+          <div class="progress-pill" id="shoppingProgress">0 / 0</div>
+        </div>
+        <div class="progress-track"><i id="shoppingBar"></i></div>
+        <div id="shoppingGroups" class="shopping-groups">
+          <div class="empty-state">Your grocery basket is empty. Plan a few meals, then hit <strong>Generate from my plan</strong>.</div>
+        </div>
+        <div class="shopping-foot">
+          <button class="link-btn" id="clearShoppingBtn">Clear checked list</button>
+          <span>Auto-saved in SQLite • no phone number, no tracking</span>
+        </div>
+      </div>
+
+      <aside class="shopping-note glass">
+        <span class="note-icon">🧺</span>
+        <h3>How it works</h3>
+        <ol>
+          <li>Assign recipes to your weekly thali slots.</li>
+          <li>Bojnalay aggregates every ingredient by name.</li>
+          <li>Duplicates merge with their quantities preserved.</li>
+          <li>Tick items as you shop, then download the list.</li>
+        </ol>
+        <div class="note-local">🌾 Local love: sattu, makhana &amp; imarti from Jaunpur folds.</div>
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+<!-- ================= MODALS ================= -->
+{% block modals %}
+<div class="modal-backdrop" id="recipeModal" hidden>
+  <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="recipeModalTitle">
+    <button class="modal-close" data-close-modal aria-label="Close">×</button>
+    <div class="modal-hero" id="modalRecipeImage"></div>
+    <div class="modal-body">
+      <div class="modal-tags" id="modalRecipeTags"></div>
+      <h2 id="recipeModalTitle">Recipe</h2>
+      <p id="modalRecipeDesc" class="modal-desc"></p>
+      <div class="modal-macros" id="modalRecipeMacros"></div>
+      <div class="modal-columns">
+        <div>
+          <h3>🧺 Ingredients</h3>
+          <ul class="ingredient-list" id="modalRecipeIngredients"></ul>
+        </div>
+        <div>
+          <h3>👩‍🍳 Method</h3>
+          <ol class="step-list" id="modalRecipeSteps"></ol>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="assignFromModalBtn">＋ Assign to my planner</button>
+        <span class="modal-hint">Closes and opens the slot picker.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="assignModal" hidden>
+  <div class="modal modal-small glass" role="dialog" aria-modal="true" aria-labelledby="assignModalTitle">
+    <button class="modal-close" data-close-modal aria-label="Close">×</button>
+    <div class="modal-body">
+      <span class="section-kicker">MEAL ASSIGNER</span>
+      <h2 id="assignModalTitle">Assign recipe</h2>
+      <p class="modal-desc" id="assignModalSub"></p>
+      <label class="field-label" for="assignDay">Day</label>
+      <select id="assignDay" class="field-input"></select>
+      <label class="field-label" for="assignSlot">Meal slot</label>
+      <select id="assignSlot" class="field-input"></select>
+      <label class="field-label">Recipe</label>
+      <select id="assignRecipe" class="field-input"></select>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="confirmAssignBtn">✔ Assign meal</button>
+        <button class="btn btn-ghost" id="unassignBtn">Clear this slot</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="customModal" hidden>
+  <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="customModalTitle">
+    <button class="modal-close" data-close-modal aria-label="Close">×</button>
+    <div class="modal-body">
+      <span class="section-kicker">YOUR FAMILY RECIPE</span>
+      <h2 id="customModalTitle">Add a custom recipe</h2>
+      <p class="modal-desc">One line per ingredient (e.g. <em>Paneer — 200 g</em>). One line per cooking step.</p>
+      <form id="customRecipeForm" class="custom-form">
+        <div class="form-row">
+          <label>Recipe name <input class="field-input" name="name" required placeholder="Grandma's Dal"></label>
+          <label>Category <input class="field-input" name="category" placeholder="Main Course" value="Main Course"></label>
+        </div>
+        <div class="form-row">
+          <label>Calories <input class="field-input" name="calories" type="number" min="0" value="300"></label>
+          <label>Protein (g) <input class="field-input" name="protein" type="number" min="0" value="12"></label>
+          <label>Carbs (g) <input class="field-input" name="carbs" type="number" min="0" value="40"></label>
+          <label>Fats (g) <input class="field-input" name="fats" type="number" min="0" value="8"></label>
+        </div>
+        <label>Description <input class="field-input" name="description" placeholder="A short, tempting note"></label>
+        <div class="form-row">
+          <label>Prep time (min) <input class="field-input" name="prep_time" type="number" min="0" value="20"></label>
+          <label>Cover photo
+            <select class="field-input" name="image">
+              <option value="food-bowl.jpg">Fresh bowl</option>
+              <option value="food-curry.jpg">Curry</option>
+              <option value="food-paneer.jpg">Paneer</option>
+              <option value="food-salad.jpg">Salad</option>
+              <option value="food-dosa.jpg">Dosa</option>
+              <option value="food-oats.jpg">Oats</option>
+              <option value="food-chaat.jpg">Chaat</option>
+            </select>
+          </label>
+        </div>
+        <label>Ingredients <textarea class="field-input" name="ingredients" rows="4" placeholder="Paneer — 200 g&#10;Spinach — 1 bunch"></textarea></label>
+        <label>Method <textarea class="field-input" name="steps" rows="3" placeholder="Chop the vegetables&#10;Cook with spices"></textarea></label>
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="submit">Save to Recipe Vault</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

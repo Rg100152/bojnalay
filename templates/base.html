@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bojnalay — Smart Thali Planner, Recipes & Nutrition Studio. Crafted in Jaunpur, Uttar Pradesh by Raj Gautam.">
+  <meta name="theme-color" content="#12100E">
+  <title>{% block title %}Bojnalay — Smart Thali Planner{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='assets/logo-bojnalay.svg') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bojnalay.css') }}">
+  <script>
+    // Screenshot / deep-link focus mode: ?view=recipes shows the vault first.
+    if (new URLSearchParams(window.location.search).get('view') === 'recipes') {
+      document.documentElement.classList.add('focus-recipes');
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Bojnalay home">
+        <img src="{{ url_for('static', filename='assets/logo-bojnalay.svg') }}" alt="Bojnalay logo" width="255" height="52">
+      </a>
+      <div class="nav-links">
+        <a href="#planner">Planner</a>
+        <a href="#recipes">Recipe Vault</a>
+        <a href="#shopping">Grocery List</a>
+        <a href="#developer">Developer</a>
+      </div>
+      <div class="nav-badges">
+        <span class="location-pill"><span class="pin">📍</span> Jaunpur, Uttar Pradesh</span>
+        <span class="dev-pill" title="Engineered by Raj Gautam">
+          <img class="dev-avatar-mini" src="{{ url_for('static', filename='assets/raj-gautam.png') }}" alt="Raj Gautam">
+          by <strong>Raj Gautam</strong>
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer" id="developer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="{{ url_for('static', filename='assets/logo-bojnalay.svg') }}" alt="Bojnalay logo" width="220" height="45">
+        <p>Plan your thali, track every calorie, automate your grocery list.<br>
+           <span class="muted">Made with heart in Jaunpur, Uttar Pradesh, India.</span></p>
+      </div>
+      <div class="dev-card">
+        <img class="dev-avatar-img" src="{{ url_for('static', filename='assets/raj-gautam.png') }}" alt="Profile photo of Raj Gautam">
+        <div class="dev-details">
+          <h3>Raj Gautam <span class="verified" title="Verified developer">✔</span></h3>
+          <p class="dev-role">Full-Stack Developer • Jaunpur, Uttar Pradesh</p>
+          <div class="dev-links">
+            <a href="mailto:{{ dev.email }}">{{ dev.email }}</a>
+            <a href="https://instagram.com/linux.userraj" target="_blank" rel="noopener">{{ dev.instagram }}</a>
+            <a href="{{ dev.github }}" target="_blank" rel="noopener">github.com/Rg100152</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {{ 2026 }} Bojnalay • Smart Thali Planner</span>
+      <span>Saffron • Clay • Mint • Jaunpur</span>
+    </div>
+  </footer>
+
+  {% block modals %}{% endblock %}
+
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <script src="{{ url_for('static', filename='js/bojnalay.js') }}"></script>
+</body>
+</html>
